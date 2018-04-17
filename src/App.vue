@@ -1,42 +1,21 @@
 <template>
   <div id="App">
     <h2>Insertion dynamique</h2>
+    <button @click="addChild()">Ajouter Colonne</button>
     <multipane
       class="custom-resizer"
-      layout="Horizontal"
-      :label="tree.label"
-      :asresizer="tree.asresizer"
-      :asnodes="tree.asnodes"
-      :nodes="tree.nodes"
+      layout="vertical"
+      ref="container"
     >
-      <div ref="container">
-        <button @click="addChild">Ajouter Ligne</button>
-      </div>
-      <div ref="container1">
-        <button @click="addBrother">Ajouter Ligne</button>
-      </div>
-      <!--<pane-->
-        <!--@click.native="onClick"-->
-      <!--&gt;-->
-        <!--Cliquer 0-->
-      <!--</pane>-->
-      <!--<multipane-resizer-->
-        <!--class="multipane-resizer"/>-->
-      <!--<pane-->
-        <!--v-on:click="onClick()"-->
-        <!--:style="{flexGrow: 1 }">-->
-        <!--<div></div>-->
-        <!--Cliquer 1-->
-      <!--</pane>-->
     </multipane>
   </div>
 </template>
 
 <script>
+import swal from 'sweetalert';
 import { Multipane, MultipaneResizer } from 'vue-multipane';
 import Vue from 'vue';
 import Pane from './components/Pane';
-import swal from '../node_modules/sweetalert';
 import Button from './components/Button';
 
 
@@ -48,42 +27,40 @@ export default {
     Pane,
     Button,
   },
-  data() {
-    return {
-      tree: {
-        label: '0',
-        asresizer: false,
-        asnodes: true,
-        nodes: [],
-      },
-    };
-  },
   methods: {
-    addChild() {
-      swal('Ligne Ajouté');
+    addChild(id) {
+      swal('I Making Child');
+      let identity;
+      if (id !== undefined) {
+        identity = 0;
+      } else {
+        identity = document.getElementsByClassName('custom-resizer');
+      }
+
       const ComponentClass = Vue.extend(Pane);
+      const ComponentClassRes = Vue.extend(MultipaneResizer);
       const instance = new ComponentClass({
         propsData: { type: 'primary' },
       });
-      instance.$slots.default = ['Clique moi !'];
-
-      // eslint-disable-next-line
-      console.log(this.$refs);
-      instance.$mount(); // pass nothing
-      this.$refs.container.appendChild(instance.$el);
-    },
-    addBrother() {
-      swal('Ligne Ajouté');
-      const ComponentClass = Vue.extend(Pane);
-      const instance = new ComponentClass({
+      const instanceRes = new ComponentClassRes({
         propsData: { type: 'primary' },
       });
-      instance.$slots.default = ['Clique moi !'];
 
       // eslint-disable-next-line
-      console.log(this.$refs);
+      // console.log(this.$refs);
       instance.$mount(); // pass nothing
-      this.$refs.container.addChild(instance.$el);
+      instanceRes.$mount();
+
+      // eslint-disable-next-line
+      console.log("This -> ", this);
+      // eslint-disable-next-line
+      console.log("Instance ",identity[0]);
+      // eslint-disable-next-line
+      console.log("ID -> ",identity[0].childElementCount);
+      if (identity[0].childElementCount !== 0) {
+        identity[0].appendChild(instanceRes.$el);
+      }
+      identity[0].appendChild(instance.$el);
     },
   },
 };
