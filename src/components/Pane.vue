@@ -1,40 +1,70 @@
 <template>
   <div class="pane"
-       @click="addChild()"
-       :style="{ minWidth: '10%', maxWidth: '90%', flexGrow:1}">
-    <slot/>
+       @click="addChild"
+       :style="{ minWidth: '10%', maxWidth: '90%', flexGrow: '1' }">
   </div>
 </template>
 <script>
 /* eslint-disable no-underscore-dangle */
-
 import { Multipane, MultipaneResizer } from 'vue-multipane';
-import swal from 'sweetalert';
+import Vue from 'vue';
+import Pane from './Pane';
+// import Button from './Button';
 
 export default{
   name: 'pane',
   components: {
     Multipane,
     MultipaneResizer,
+    Pane,
   },
   methods: {
     addChild() {
-      swal('I Want A Child !');
-      let uid;
-      if (this._uid === 3) {
-        uid = 0;
-      } else {
-        uid = this._uid - 4;
-      }
-      const identity = document.getElementById(uid);
       // eslint-disable-next-line
-      console.log("Child ID -> ", this);
-      this.$emit('addChild', identity);
+      console.log('----------------------------------------------------');
+      const ComponentClass = Vue.extend(Pane);
+      const ComponentClassRes = Vue.extend(MultipaneResizer);
+      const instance = new ComponentClass({
+        propsData: { type: 'primary' },
+      });
+      const instanceRes = new ComponentClassRes({
+        propsData: { type: 'primary' },
+      });
+
+      // On recupere les éléments ayant pour class pane et on verifie si on atteint le seuil
+      const panes = document.getElementsByClassName('pane');
+
+      instance.$mount(); // pass nothing
+      instanceRes.$mount();
+      // eslint-disable-next-line
+      console.log("This -> ", this);
+      // eslint-disable-next-line
+      console.log("Children -> ",this.children);
+      // eslint-disable-next-line
+      console.log("Panes -> ", panes);
+      // eslint-disable-next-line
+      console.log("This Panes -> ", panes[this._uid-3]);
+      // eslint-disable-next-line
+      // console.log("Children Length -> ",this.children.length);
+      if (this.children !== undefined) {
+        this.addChild(instanceRes.$el);
+      }
+      this.addChild(instance.$el);
+
+      if (this.children.length >= 3) {
+        // eslint-disable-next-line
+        console.log("// ",
+          this.children[this.children.length - 3]);
+        // eslint-disable-next-line
+        if (this.children[this.children.length - 3].style.flexGrow == "1") {
+          this.children[this.children.length - 3].style.flexGrow = '0';
+        }
+      }
     },
   },
 };
 </script>
-
+cos
 <style>
   .pane {
     text-align: left;
@@ -50,7 +80,7 @@ export default{
     margin: 0;
     display: block;
     left: 2px;
-    margin-top: 45%;
+    margin-top: 250px;
     border-left: 2px solid #ffb100;
   }
   .layout-h > .multipane-resizer {
@@ -65,25 +95,3 @@ export default{
     border-left: 1px solid #ccc;
   }
 </style>
-<!--
-<div class="custom-resizer" layout="vertical" class=""pane>
-  &lt;!&ndash; Instancier  par programme &ndash;&gt;
-  <pane class="pane"
-        v-for="(tree, index) in nodes"
-        :key="index"
-        :nodes="tree.nodes"
-        :label="tree.label"
-        :asnodes="tree.asnodes"
-        :asresizer="tree.asresizer"
-        :slot="resizer"
-  />
-  <div v-if=!this.asnodes> {{ this.label }} </div>
-  <div v-if="!this.asresizer">
-    <slot/>
-  </div>
-  <slot name="resizer">
-    {{ this.label }}
-    <multipane-resizer/>
-  </slot>
-</div>
--->
