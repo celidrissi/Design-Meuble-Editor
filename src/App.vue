@@ -1,6 +1,5 @@
 <template>
   <div id="App">
-    <h2>Insertion dynamique</h2>
     <button @click="addChild()">| |</button>
     <multipane
       class="custom-resizer"
@@ -76,27 +75,21 @@ export default {
         if (panes[panes.length - 1].style.flexGrow === '1') {
           panes[panes.length - 1].style.flexGrow = '0';
         }
+        panes[panes.length - 1].style.maxWidth = `${parseInt(panes[panes.length - 1].style.maxWidth, 10) - 10}%`;
       }
-
       identity[0].appendChild(instance.$el);
     },
   },
 };
 </script>
-<style scoped>
-  .custom-resizer {
+<style>
+  body{
     width: 100%;
-    height: 500px;
+    height: 100%;
   }
-  .multipane-resizer {
-    margin: 0;
-    display: block;
-    width: 5px;
-    height: 40px;
-    margin-top: 175px;
-    margin-left: 5px;
-    margin-right: 5px;
-    border-left: 1px solid #ccc;
-    border-right: 1px solid #ccc;
+  .custom-resizer {
+    width: 98%;
+    height: 98%;
+    position: absolute;
   }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="pane"
-       :style="{ minWidth: '10%', maxWidth: '90%', flexGrow: '1' }"
+       :style="{ minWidth: '10%', maxWidth: '100%', flexGrow: '1' }"
        ref="setref()">
     <button @click="addChild" class="button">| |</button>
   </div>
@@ -68,8 +68,7 @@ export default{
       console.log(" // ", id);
       if (id >= 2) {
         if (this.$el.children[id].style.flexGrow === '1') {
-          // eslint-disable-next-line
-          console.log("// ", this.$el.children[id].style.flexGrow);
+          this.$el.children[id].style.flexGrow = '0';
         }
       }
     },
@@ -94,21 +93,10 @@ export default{
   .layout-v > .multipane-resizer {
     height: 40px;
     width: 4px;
-    margin: 0;
     display: block;
     left: 2px;
-    margin-top: 250px;
-    border-left: 2px solid #ffb100;
-  }
-  .layout-h > .multipane-resizer {
-    height: 40px;
-    margin: 0;
-    display: block;
-    width: 5px;
-    left: 0px;
-    margin-top: 175px;
-    margin-left: 5px;
-    margin-right: 5px;
-    border-left: 1px solid #ccc;
+    margin-left: 0px;
+    margin-top: 50%;
+    border-left: 100px solid #ffb100;
   }
 </style>
