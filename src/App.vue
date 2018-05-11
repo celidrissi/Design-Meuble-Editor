@@ -1,7 +1,7 @@
 <template>
   <div id="App">
     <h2>Insertion dynamique</h2>
-    <button @click="addChild()">Ajouter Colonne</button>
+    <button @click="addChild()">| |</button>
     <multipane
       class="custom-resizer"
       layout="vertical"
@@ -16,7 +16,6 @@ import swal from 'sweetalert';
 import { Multipane, MultipaneResizer } from 'vue-multipane';
 import Vue from 'vue';
 import Pane from './components/Pane';
-import Button from './components/Button';
 
 export default {
   name: 'App',
@@ -24,7 +23,6 @@ export default {
     Multipane,
     MultipaneResizer,
     Pane,
-    Button,
   },
   data() {
     return {
@@ -33,17 +31,17 @@ export default {
   },
   methods: {
     addChild() {
-      // eslint-disable-next-line
-      console.log('----------------------------------------------------');
-      // On recupere les éléments ayant pour class custom-resizer
-      const identity = document.getElementsByClassName('custom-resizer');
-
       // On recupere les éléments ayant pour class pane et on verifie si on atteint le seuil
       const panes = document.getElementsByClassName('pane');
       if (panes.length === 6) {
         swal('Too many child');
         return;
       }
+
+      // eslint-disable-next-line
+      console.log('----------------------------------------------------');
+      // On recupere les éléments ayant pour class custom-resizer
+      const identity = document.getElementsByClassName('custom-resizer');
 
       const ComponentClass = Vue.extend(Pane);
       const ComponentClassRes = Vue.extend(MultipaneResizer);
