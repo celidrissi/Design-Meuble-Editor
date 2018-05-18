@@ -8,7 +8,7 @@
         layout="vertical"
       >
         <template v-for="(pane, index) in panes">
-          <pane
+          <Pane
             :panex="pane"
             :is-last="index === panes.length - 1"
             :width="100 / panes.length"
@@ -22,10 +22,9 @@
 </template>
 
 <script>
-// import swal from 'sweetalert';
+import swal from 'sweetalert';
 import { Multipane, MultipaneResizer } from 'vue-multipane';
 import Pane from './Pane';
-import Button from './Button';
 
 export default {
   name: 'MultiPaneBox',
@@ -39,7 +38,6 @@ export default {
     Multipane,
     MultipaneResizer,
     Pane,
-    Button,
   },
   methods: {
     createPane() {

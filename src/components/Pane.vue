@@ -10,9 +10,6 @@
   </div>
 </template>
 <script>
-/* eslint-disable no-underscore-dangle */
-
-import { Multipane, MultipaneResizer } from 'vue-multipane';
 import MultiPaneBox from './MultiPaneBox';
 // import swal from 'sweetalert';
 
@@ -42,8 +39,6 @@ export default{
   },
   components: {
     MultiPaneBox,
-    Multipane,
-    MultipaneResizer,
   },
   methods: {
 

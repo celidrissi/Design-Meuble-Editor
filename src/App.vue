@@ -1,6 +1,6 @@
 <template>
   <div id="App">
-    <MultiPaneBox is :panes="panes"/>
+    <MultiPaneBox :panes="panes"/>
   </div>
 </template>
 
