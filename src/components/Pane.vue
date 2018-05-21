@@ -2,30 +2,31 @@
   <div
     class="pane"
     :style="{
-    width: width.toString()+'%',
     minWidth: minWidth.toString()+'%' ,
     maxWidth: maxWidth.toString()+'%' ,
     flexGrow: isLast ? '1' : '0'}">
-      <MultiPaneBox :panes="panex.childs"/>
+      <MultiPaneBox :panes="pane.childs" :type="type" v-on="displayButton(false)"/>
   </div>
 </template>
 <script>
-import MultiPaneBox from './MultiPaneBox';
+/* eslint-disable no-console */
 // import swal from 'sweetalert';
+import MultiPaneBox from './MultipaneBox';
+
 
 export default{
   name: 'pane',
   props: {
-    panex: {
+    pane: {
       type: Object,
+      required: true,
+    },
+    type: {
+      type: String,
       required: true,
     },
     isLast: {
       type: Boolean,
-      required: true,
-    },
-    width: {
-      type: Number,
       required: true,
     },
     minWidth: {
@@ -41,15 +42,18 @@ export default{
     MultiPaneBox,
   },
   methods: {
-
+    displayButton(state) {
+      if (state !== undefined) {
+        this.$emit('display-button', state);
+        console.log('emit 1 !');
+      }
+    },
   },
 };
 </script>
 
 <style>
   .pane {
-    text-align: left;
-    /*padding: 15px;*/
     overflow: hidden;
     background: #eee;
     border: 1px solid #000000;

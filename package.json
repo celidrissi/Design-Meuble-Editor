@@ -16,7 +16,8 @@
     "sweetalert": "^2.1.0",
     "vue": "^2.5.2",
     "vue-multipane": "^0.9.5",
-    "vue-splitpane": "^1.0.2"
+    "vue-splitpane": "^1.0.2",
+    "vue-touch": "^2.0.0-beta.4"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

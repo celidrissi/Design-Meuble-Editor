@@ -1,6 +1,6 @@
 <template>
   <div id="App">
-    <MultiPaneBox :panes="panes"/>
+    <MultiPaneBox :panes="panes" :type="vertical"/>
   </div>
 </template>
 
@@ -8,7 +8,8 @@
 // import swal from 'sweetalert';
 import { Multipane, MultipaneResizer } from 'vue-multipane';
 // import Vue from 'vue';
-import MultiPaneBox from './components/MultiPaneBox';
+import MultiPaneBox from './components/MultipaneBox';
+
 
 export default {
   name: 'App',
@@ -26,12 +27,6 @@ export default {
         },
         {
           childs: [
-            {
-              childs: [],
-            },
-            {
-              childs: [],
-            },
           ],
         },
       ],
@@ -40,4 +35,7 @@ export default {
 };
 </script>
 <style>
+  html, body, #App {
+    height: 100%;
+  }
 </style>
